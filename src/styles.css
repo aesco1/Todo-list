@@ -1,0 +1,35 @@
+:root{
+    --color-bg: #F7F7F5;
+    --color-surface: #FFFFFF;
+    --color-border: #E3E3DE;
+    --color-text: #1C1C1A;
+    --color-text-muted: #6B6B65;
+    --color-accent: #4A7C59;
+}
+
+body{
+    background: var(--color-bg);
+    color: var(--color-text);
+    display: flex;
+}
+
+#content{
+  border: 1px solid #1C1C1A;
+  border-radius: 1rem;
+}
+
+#sidebar{
+  border: 1px solid red;
+  border-radius: 1rem;
+  color: red;
+}
+
+.todo-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.btn-new {
+  background: var(--color-accent);
+  color: #fff; 
+}
