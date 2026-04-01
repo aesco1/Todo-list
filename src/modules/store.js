@@ -20,10 +20,10 @@ function createTask(title, description, dueDate, priority) {
     id: crypto.randomUUID(),
     title,
     description,
-    dueDate: parseISO(dueDate), // store as Date object
+    dueDate,
     priority,
     completed: false,
-    createdAt: new Date(),
+    createdAt: new Date().toISOString(),
   };
 }
 
@@ -38,6 +38,7 @@ export const Store = {
 
   addProject(name) {
     projects.push({ id: crypto.randomUUID(), name, tasks: [] });
+    save();
   },
   
   deleteProject(projectId) {
@@ -78,7 +79,7 @@ export const Store = {
   getUpcoming(){
     const today = format(new Date(), 'yyyy-MM-dd');
     return getAllTasks().filter(task => task.dueDate > today);
-  }
+  },
 
 
   getOverdue(){

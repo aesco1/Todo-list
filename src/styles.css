@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root{
     --color-bg: #F7F7F5;
     --color-surface: #FFFFFF;
@@ -11,18 +15,87 @@ body{
     background: var(--color-bg);
     color: var(--color-text);
     display: flex;
+    height: 100dvh;
 }
 
 #content{
-  border: 1px solid #1C1C1A;
-  border-radius: 1rem;
+  flex: 1;
 }
 
 #sidebar{
-  border: 1px solid red;
   border-radius: 1rem;
-  color: red;
+  padding: 1rem;
 }
+
+h1{
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.new-project-container{
+  color: var(--color-text-muted);
+  
+}
+
+.sidebar-icon{
+  fill: red;
+}
+
+.avatar svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.sidebar-content-area{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.user-area{
+  margin-bottom: 2rem;
+}
+
+.user-avatar-area{
+  display: flex;
+  align-items: center;
+}
+
+.icon-title-container{
+  display: flex;
+  gap: .2rem;
+  align-items: center;
+  justify-content: center;
+}
+/*Task Area*/
+.task-area{
+  margin-left: -1rem;
+}
+
+
+
+/*Projects area styles */
+.project-area .icon-title-container:first-child {
+  margin-left: -1rem; 
+}
+
+/*Collab area styles*/
+.collabArea{
+  display: flex;
+  flex-direction: column;
+
+}
+.collabArea .icon-title-container:first-child {
+  margin-bottom: -1rem;
+  margin-left: -1rem; 
+}
+
+.icon-title-container:nth-child(2) { 
+  margin-bottom: -1rem;
+
+}
+
+
 
 .todo-card {
   background: var(--color-surface);

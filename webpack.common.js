@@ -17,7 +17,11 @@ export default {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpg|jpeg|gif|svg)$/i,
+        test: /\.svg$/i,
+        type: 'asset/source', // raw string
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
       },
       {
