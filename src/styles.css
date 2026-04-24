@@ -9,6 +9,7 @@
     --color-text: #1C1C1A;
     --color-text-muted: #6B6B65;
     --color-accent: #4A7C59;
+    --color-sidebar: #EFEDE8;
 }
 
 body{
@@ -16,15 +17,21 @@ body{
     color: var(--color-text);
     display: flex;
     height: 100dvh;
+    margin: 0;
 }
 
 #content{
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-#sidebar{
-  border-radius: 1rem;
-  padding: 1rem;
+#sidebar{  
+  padding: 1rem 0;
+  width: 200px;
+  background-color: var(--color-sidebar);
+  overflow: hidden;
 }
 
 h1{
@@ -32,13 +39,30 @@ h1{
   color: var(--color-text);
 }
 
+
 .new-project-container{
+  all: unset;
+  font-weight: 700;
+  height: 1rem;
+  overflow: hidden;
   color: var(--color-text-muted);
-  
+  display: inline-flex;
+  border: none;
+  background: none;
+  padding-left: 1.8rem;
+  cursor: pointer;
+  transition: font-size 0.2s ease, color 0.2s ease;
+}
+
+.new-project-container:hover{
+  font-size: 1.06rem;
+  color: var(--color-accent);
 }
 
 .sidebar-icon{
-  fill: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar svg {
@@ -52,50 +76,75 @@ h1{
   align-items: flex-start;
 }
 
+.user-name{
+  font-weight: 600;
+}
+
 .user-area{
   margin-bottom: 2rem;
 }
 
 .user-avatar-area{
   display: flex;
+  flex-direction: row;
   align-items: center;
+  gap: .8rem;
 }
 
-.icon-title-container{
-  display: flex;
-  gap: .2rem;
-  align-items: center;
-  justify-content: center;
+.add-task-button{
+  all: unset;
+  cursor: pointer;
 }
+
+
+
+
 /*Task Area*/
-.task-area{
-  margin-left: -1rem;
+.all-tasks-container{
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .2rem;
 }
-
 
 
 /*Projects area styles */
-.project-area .icon-title-container:first-child {
-  margin-left: -1rem; 
-}
 
 /*Collab area styles*/
 .collabArea{
   display: flex;
   flex-direction: column;
+}
 
+.people-container{
+  all: unset;
+  display: flex;
+  align-items: center;
 }
-.collabArea .icon-title-container:first-child {
-  margin-bottom: -1rem;
-  margin-left: -1rem; 
+
+.group-proj-area{
+  all: unset;
+  display: flex;
+  align-items: center;
 }
+
 
 .icon-title-container:nth-child(2) { 
   margin-bottom: -1rem;
 
 }
 
+.people-container{
+  cursor: pointer;
+  margin-bottom: -1rem;
+  gap: .2rem;
+}
 
+.group-proj-area{
+  cursor: pointer;
+  gap: .2rem;
+}
 
 .todo-card {
   background: var(--color-surface);
@@ -105,4 +154,73 @@ h1{
 .btn-new {
   background: var(--color-accent);
   color: #fff; 
+}
+
+.icon-title-container{
+  all: unset;
+  min-width: 0;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: .2rem;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.icon-title-container:hover{
+  border-left-color: #4A7C59;
+  background: rgba(74, 124, 89, 0.12);
+  color: #4A7C59;
+}
+
+.task-area > .icon-title-container{
+  margin-bottom: -1rem;
+}
+
+
+/*Main Content Area*/
+.home-page-parent{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-container{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.today-header{
+  justify-self: flex-start;
+  align-self: center;
+}
+
+.upcoming-container{
+  flex: 1;
+}
+
+.home-add-task-button-container{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-add-task-button{
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2;
 }

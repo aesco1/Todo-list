@@ -65,6 +65,7 @@ export const Store = {
     const project = projects.find(project => project.id === projectId);
     if (!project) return;
     const task = project.tasks.find(task => task.id === taskId)
+    if (!task) return;
     task.completed = !task.completed;
     save();
   },
@@ -91,3 +92,5 @@ export const Store = {
     return getAllTasks().filter(t => t.completed);
   },
 };
+
+

@@ -1,0 +1,3 @@
+I want to add dropdown menus for my different tasks in the today and upcoming sections on the main page.
+Circle next to each task representing done with a check, x for missed, and blank when upcoming
+labels should be color coded based on importance. 

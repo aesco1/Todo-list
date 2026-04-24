@@ -8,7 +8,7 @@ import groupProjectIcon from '../assets/icons/group-project-icon.svg';
 
 
 import { Store } from './store';
-
+import { Modal } from './modals';
 export class Sidebar{
 
     createUserArea(){
@@ -37,8 +37,8 @@ export class Sidebar{
         tasksAreaContainer.classList.add('task-area', 'sidebar-content-area');
 
         //Add task title
-        const addTaskContainer = document.createElement('div');
-        addTaskContainer.classList.add('icon-title-container');
+        const addTaskContainer = document.createElement('button');
+        addTaskContainer.classList.add('icon-title-container', 'add-task-button');
 
         const addTaskImage = document.createElement('div');
         addTaskImage.innerHTML = addTaskIcon;
@@ -51,8 +51,8 @@ export class Sidebar{
         addTaskContainer.append(addTaskImage, addTaskTitle);
 
         //All Tasks Title
-        const allTaskContainer = document.createElement('div');
-        allTaskContainer.classList.add('icon-title-container');
+        const allTaskContainer = document.createElement('button');
+        allTaskContainer.classList.add('icon-title-container', 'all-tasks-container');
 
         const allTaskImage = document.createElement('div');
         allTaskImage.innerHTML = allTasksIcon;
@@ -102,7 +102,7 @@ export class Sidebar{
         );
 
         //new project
-        const newProjectContainer = document.createElement('h3');
+        const newProjectContainer = document.createElement('button');
         newProjectContainer.classList.add('new-project-container', 'sidebar-title');
         newProjectContainer.textContent = "New Project +"
         newProjectContainer.addEventListener('click', () => this.displayNewProjectModal()); 
@@ -113,66 +113,55 @@ export class Sidebar{
         return projectsAreaDiv;
     }
 
-    createCollabArea(){
-        const collabAreaDiv = document.createElement('div');
-        collabAreaDiv.classList.add('collabArea', 'sidebar-content-area');
-
-        //Collab title
-        const collabIconTitleContainer = document.createElement('div');
-        collabIconTitleContainer.classList.add('icon-title-container');
+    createPeopleArea(){
         
-        const collabImage = document.createElement('div');
-        collabImage.innerHTML = collabIcon;
-        collabImage.classList.add('collab-icon', 'sidebar-icon');
-
-        const collabTitle = document.createElement('h1');
-        collabTitle.classList.add('collab-title', 'sidebar-title');
-        collabTitle.textContent = "Collaborate";
-
-        collabIconTitleContainer.append(collabImage, collabTitle, );
-
         //People title
-        const peopleIconTitleContainer = document.createElement('div');
-        peopleIconTitleContainer.classList.add('icon-title-container');
+        const peopleIconTitleContainer = document.createElement('button');
+        peopleIconTitleContainer.classList.add('icon-title-container', 'people-container');
 
         const peopleImage = document.createElement('div');
         peopleImage.innerHTML = peopleIcon;
         peopleImage.classList.add('people-icon', 'sidebar-icon');
 
-        const peopleTitle = document.createElement('h2');
+        const peopleTitle = document.createElement('h1');
         peopleTitle.classList.add('people-title', 'sidebar-subtitle');
         peopleTitle.textContent = "People";
 
         peopleIconTitleContainer.append(peopleImage, peopleTitle, );
+        
+        return peopleIconTitleContainer;
+    }
 
+    createGroupProjectsArea(){
         //Group Project title
-        const groupProjIconTitleContainer = document.createElement('div');
-        groupProjIconTitleContainer.classList.add('icon-title-container');
+        const groupProjIconTitleContainer = document.createElement('button');
+        groupProjIconTitleContainer.classList.add('icon-title-container', 'group-proj-area');
 
         const groupProjectImage = document.createElement('div');
         groupProjectImage.innerHTML  = groupProjectIcon;
         groupProjectImage.classList.add('gp-icon', 'sidebar-icon');
 
-        const groupProjectTitle = document.createElement('h2');
+        const groupProjectTitle = document.createElement('h1');
         groupProjectTitle.classList.add('gp-title', 'sidebar-subtitle' );
-        groupProjectTitle.textContent = "Projects";
+        groupProjectTitle.textContent = "Collaborate";
 
         groupProjIconTitleContainer.append(groupProjectImage, groupProjectTitle);
-
-        //Append to main div
-        collabAreaDiv.append(collabIconTitleContainer, peopleIconTitleContainer,groupProjIconTitleContainer);
-    
-        return collabAreaDiv;
+        return groupProjIconTitleContainer;
     }
 
     displayNewProjectModal(){
+        const modalContainer = document.createElement('div');
+        modalContainer.classList.add('modal-container');
 
+
+        
+        
     }
 
     render(){
         const sidebarDiv = document.createElement('div');
 
-        sidebarDiv.append(this.createUserArea(), this.createTasksArea(), this.createProjectsArea(), this.createCollabArea(),);
+        sidebarDiv.append(this.createUserArea(), this.createTasksArea(), this.createProjectsArea(), this.createPeopleArea(), this.createGroupProjectsArea());
         return sidebarDiv;
     }
 }
