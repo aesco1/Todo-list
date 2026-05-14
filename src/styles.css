@@ -32,6 +32,11 @@ body{
   width: 200px;
   background-color: var(--color-sidebar);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 h1{
@@ -40,22 +45,17 @@ h1{
 }
 
 
-.new-project-container{
-  all: unset;
-  font-weight: 700;
-  height: 1rem;
-  overflow: hidden;
-  color: var(--color-text-muted);
-  display: inline-flex;
-  border: none;
-  background: none;
-  padding-left: 1.8rem;
-  cursor: pointer;
-  transition: font-size 0.2s ease, color 0.2s ease;
+.new-project-container {
+  all:unset;
+  padding-left: 1rem;
+  padding-top: .8rem;
+  font-weight: 600;
+  opacity: 0.25;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
-.new-project-container:hover{
-  font-size: 1.06rem;
+.new-project-container:hover {
+  opacity: 1;
   color: var(--color-accent);
 }
 
@@ -108,9 +108,6 @@ h1{
   gap: .2rem;
 }
 
-
-/*Projects area styles */
-
 /*Collab area styles*/
 .collabArea{
   display: flex;
@@ -158,6 +155,7 @@ h1{
 
 .icon-title-container{
   all: unset;
+  box-sizing: border-box;
   min-width: 0;
   display: flex;
   width: 100%;
@@ -199,13 +197,13 @@ h1{
   justify-content: center;
 }
 
-.today-header{
-  justify-self: flex-start;
-  align-self: center;
-}
 
 .upcoming-container{
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; 
 }
 
 .home-add-task-button-container{
@@ -223,4 +221,59 @@ h1{
   align-items: center;
   padding: 0.5rem 1.2rem;
   border-radius: 2;
+}
+
+/*Projects area styles */
+.project-area {
+  display: flex;
+  flex-direction: column;
+  flex: 1;                 
+  min-height: 0;  
+  width: 100%;         
+}
+
+.proj-list-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: .8rem;                 
+  min-height: 0;
+  padding-left: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto;      
+}
+
+.proj-list-container .project-title {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.project-area.sidebar-content-area {
+  align-items: stretch;
+}
+
+.project-title {
+  all: unset;
+  font-size: 1.3rem;
+  box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.project-title:hover {
+  color: var(--color-accent);
+}
+
+.project-title:active {
+  transform: scale(0.97);
+  color: var(--color-accent);
+}
+
+#sidebar button:active {
+  transform: translateY(1px);
 }

@@ -1,14 +1,17 @@
 import avatarIcon from '../assets/icons/user_icon.svg';
 import addTaskIcon from '../assets/icons/add-circle.svg'
 import allTasksIcon from '../assets/icons/checklist-icon.svg'
-import projectTitleIcon from '../assets/icons/project-icon.svg'
 import collabIcon from '../assets/icons/collab-icon.svg';
 import peopleIcon from '../assets/icons/group-icon.svg';
 import groupProjectIcon from '../assets/icons/group-project-icon.svg';
-
+import projectTitleIcon from '../assets/icons/project-icon.svg';
 
 import { Store } from './store';
-import { Modal } from './modals';
+import { AddTaskModal, AddProjectModal } from './modals/index.js';
+
+const taskModal = new AddTaskModal();
+const projectModal = new AddProjectModal();
+
 export class Sidebar{
 
     createUserArea(){
@@ -36,7 +39,6 @@ export class Sidebar{
         const tasksAreaContainer = document.createElement('div');
         tasksAreaContainer.classList.add('task-area', 'sidebar-content-area');
 
-        //Add task title
         const addTaskContainer = document.createElement('button');
         addTaskContainer.classList.add('icon-title-container', 'add-task-button');
 
@@ -49,6 +51,7 @@ export class Sidebar{
         addTaskTitle.textContent = "Add Task";
 
         addTaskContainer.append(addTaskImage, addTaskTitle);
+        addTaskContainer.addEventListener('click', () => taskModal.open());
 
         //All Tasks Title
         const allTaskContainer = document.createElement('button');
@@ -92,20 +95,24 @@ export class Sidebar{
         const projectListContainer = document.createElement('div');
         projectListContainer.classList.add("proj-list-container");
 
-        const projects = Store.getProjects();
-        
-        projects.forEach(project => {
-            const projectName = document.createElement('h3');
+       Store.getProjects().forEach(project => {
+            const projectName = document.createElement('button');
+            projectName.classList.add('project-title');
             projectName.textContent = project.name;
-            projectListContainer.appendChild(projectName);
-            }
-        );
 
+            //Clicking proj sets it as active
+            projectName.addEventListener('click', () => {
+                Store.activeProjectID = project.id;
+                //!!!RE RENDER MAIN CONTENT AREA BASED ON PROJ ID
+            });
+            projectListContainer.appendChild(projectName);
+        });
+        
         //new project
         const newProjectContainer = document.createElement('button');
         newProjectContainer.classList.add('new-project-container', 'sidebar-title');
         newProjectContainer.textContent = "New Project +"
-        newProjectContainer.addEventListener('click', () => this.displayNewProjectModal()); 
+        newProjectContainer.addEventListener('click', () => projectModal.open()); 
 
         projectsAreaDiv.append(projectsIconTitleContainer, projectListContainer, newProjectContainer, );
         
@@ -149,19 +156,16 @@ export class Sidebar{
         return groupProjIconTitleContainer;
     }
 
-    displayNewProjectModal(){
-        const modalContainer = document.createElement('div');
-        modalContainer.classList.add('modal-container');
-
-
-        
-        
-    }
-
     render(){
         const sidebarDiv = document.createElement('div');
 
-        sidebarDiv.append(this.createUserArea(), this.createTasksArea(), this.createProjectsArea(), this.createPeopleArea(), this.createGroupProjectsArea());
+        sidebarDiv.append(
+            this.createUserArea(),
+            this.createTasksArea(),
+            this.createProjectsArea(),
+            this.createPeopleArea(),
+            this.createGroupProjectsArea()
+        );
         return sidebarDiv;
     }
 }

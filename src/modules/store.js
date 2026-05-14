@@ -1,9 +1,11 @@
 import { parseISO, format } from 'date-fns';
+
 const STORAGE_KEY = 'todo-projects';
+const DEFAULT_PROJECT_ID = 'default';
 
 function load(){
   const raw = localStorage.getItem(STORAGE_KEY);
-  return raw ? JSON.parse(raw) : [];
+  return raw ? JSON.parse(raw) : [{ id: DEFAULT_PROJECT_ID, name: 'General', tasks: [] }];
 }
 
 function save(){
@@ -30,7 +32,8 @@ function createTask(title, description, dueDate, priority) {
 let projects = load(); 
 
 export const Store = {
-
+  activeProjectID: DEFAULT_PROJECT_ID,
+  
   //Projects
   getProjects() {
     return projects;
@@ -57,7 +60,7 @@ export const Store = {
   deleteTask(projectId, taskId){
     const project = projects.find(p => p.id === projectId);
     if (!project) return;
-    project.tasks = project.tasks.filter(t => t.id !== taskId);
+    const task = project.tasks = project.tasks.filter(t => t.id !== taskId); 
     save();
   },
 
