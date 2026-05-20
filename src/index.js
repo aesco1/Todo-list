@@ -1,13 +1,17 @@
 import './styles.css';
-import {Sidebar} from './modules/populateSide.js'
-import {HomePage} from './modules/populateHomepage.js'
+import { Store } from './modules/store.js';
+import { Sidebar } from './modules/populateSide.js'
+import { ContentArea } from './modules/ContentArea.js';
+import { AddTaskModal, AddProjectModal, UpdateTaskModal } from './modules/modals/index.js';
 
-console.log('Hello from webpack!');
+const taskModal = new AddTaskModal();
+const projectModal = new AddProjectModal();
+const updateTaskModal = new UpdateTaskModal();
 
 const sidebarElement = document.getElementById('sidebar');
-const sidebarInstance = new Sidebar();
+const sidebarInstance = new Sidebar(taskModal, projectModal);
 sidebarElement.append(sidebarInstance.render());
 
-const homePageElement = document.getElementById('content');
-const homePageInstance = new HomePage();
-homePageElement.append(homePageInstance.render());
+const contentElement = document.getElementById('content');
+const contentInstance = new ContentArea(taskModal, updateTaskModal);
+contentElement.append(contentInstance.render());

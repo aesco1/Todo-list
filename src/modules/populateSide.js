@@ -9,10 +9,13 @@ import projectTitleIcon from '../assets/icons/project-icon.svg';
 import { Store } from './store';
 import { AddTaskModal, AddProjectModal } from './modals/index.js';
 
-const taskModal = new AddTaskModal();
-const projectModal = new AddProjectModal();
-
 export class Sidebar{
+    constructor(taskModal, projectModal){
+        this.taskModal = taskModal;
+        this.projectModal = projectModal;
+        document.addEventListener('projectAdded', () => this.rerender());
+        document.addEventListener('projectDeleted', () => this.rerender());
+    }
 
     createUserArea(){
         const userAreaDiv = document.createElement('div');
@@ -51,7 +54,7 @@ export class Sidebar{
         addTaskTitle.textContent = "Add Task";
 
         addTaskContainer.append(addTaskImage, addTaskTitle);
-        addTaskContainer.addEventListener('click', () => taskModal.open());
+        addTaskContainer.addEventListener('click', () => this.taskModal.open());
 
         //All Tasks Title
         const allTaskContainer = document.createElement('button');
@@ -96,23 +99,37 @@ export class Sidebar{
         projectListContainer.classList.add("proj-list-container");
 
        Store.getProjects().forEach(project => {
+            const projectItem = document.createElement('div');
+            projectItem.classList.add('project-item');
+
             const projectName = document.createElement('button');
             projectName.classList.add('project-title');
             projectName.textContent = project.name;
 
             //Clicking proj sets it as active
             projectName.addEventListener('click', () => {
-                Store.activeProjectID = project.id;
-                //!!!RE RENDER MAIN CONTENT AREA BASED ON PROJ ID
+                Store.activeProjectId = project.id;
+                document.dispatchEvent( new CustomEvent('projectSelected'));
             });
-            projectListContainer.appendChild(projectName);
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('project-delete-btn');
+            deleteBtn.textContent = '×';
+            deleteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                Store.deleteProject(project.id);
+                document.dispatchEvent(new CustomEvent('projectDeleted'));
+            });
+
+            projectItem.append(projectName, deleteBtn);
+            projectListContainer.appendChild(projectItem);
         });
         
         //new project
         const newProjectContainer = document.createElement('button');
         newProjectContainer.classList.add('new-project-container', 'sidebar-title');
         newProjectContainer.textContent = "New Project +"
-        newProjectContainer.addEventListener('click', () => projectModal.open()); 
+        newProjectContainer.addEventListener('click', () => this.projectModal.open()); 
 
         projectsAreaDiv.append(projectsIconTitleContainer, projectListContainer, newProjectContainer, );
         
@@ -167,5 +184,12 @@ export class Sidebar{
             this.createGroupProjectsArea()
         );
         return sidebarDiv;
+    }
+
+    rerender(){
+        console.log('Rerender triggered');
+        const sidebarElement = document.getElementById('sidebar');
+        sidebarElement.innerHTML = '';
+        sidebarElement.appendChild(this.render());
     }
 }

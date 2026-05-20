@@ -32,7 +32,7 @@ function createTask(title, description, dueDate, priority) {
 let projects = load(); 
 
 export const Store = {
-  activeProjectID: DEFAULT_PROJECT_ID,
+  activeProjectId: DEFAULT_PROJECT_ID,
   
   //Projects
   getProjects() {
@@ -70,6 +70,15 @@ export const Store = {
     const task = project.tasks.find(task => task.id === taskId)
     if (!task) return;
     task.completed = !task.completed;
+    save();
+  },
+
+  updateTask(projectId, taskId, updates){
+    const project = projects.find(project => project.id === projectId);
+    if (!project) return
+    const task = project.tasks.find(task => task.id === taskId)
+    if (!task) return;
+    Object.assign(task, updates);
     save();
   },
 
