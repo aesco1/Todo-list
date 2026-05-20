@@ -20,8 +20,8 @@ export default class AddProjectModal extends Modal {
   }
 
   bindEvents() {
-    document.getElementById('project-submit-btn').addEventListener('click', () => {
-      this.handleSubmit();
+    this.modal.querySelector('#project-submit-btn').addEventListener('click', () => {
+        this.handleSubmit();
     });
   }
 
@@ -29,9 +29,10 @@ export default class AddProjectModal extends Modal {
     if (!this.isValid()) return;
 
     Store.addProject(
-      document.getElementById('project-name').value,
+      this.modal.querySelector('#project-name').value,
     );
 
     this.close();
+    document.dispatchEvent(new CustomEvent('projectAdded'));
   }
 }
