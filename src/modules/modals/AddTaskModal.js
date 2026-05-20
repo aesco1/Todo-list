@@ -32,16 +32,19 @@ export default class AddTaskModal extends Modal{
     }
 
     bindEvents(){
-        document.getElementById('task-submit-btn').addEventListener('click', () => {
-            this.handleSubmit();
-        });
+        const btn = document.getElementById('task-submit-btn')
+        console.log('submit btn found:', btn);
+        btn.addEventListener('click', () => this.handleSubmit());
     }
 
     handleSubmit(){
+        console.log('submit fired');
+        console.log('activeProjectId:', Store.activeProjectId);
+
         if (!this.isValid()) return;
 
         Store.addTask(
-            Store.activeProjectID,
+            Store.activeProjectId,
             document.getElementById('task-title').value,
             document.getElementById('description').value,
             document.getElementById('due-date').value,
@@ -49,6 +52,7 @@ export default class AddTaskModal extends Modal{
         )
 
         this.close();
+        document.dispatchEvent(new CustomEvent('taskAdded'));
     }
     
 }

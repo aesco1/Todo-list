@@ -5,6 +5,10 @@ export default class Modal {
         this.modal.id = id;
         document.body.appendChild(this.modal);
         this.form = null;
+        this.modal.addEventListener('cancel', (e) => {
+            e.preventDefault();
+            this.close();
+        });
     }
 
     open(){
@@ -12,6 +16,7 @@ export default class Modal {
     }
 
     close(){
+        console.log('close fired');
         this.modal.close();
         this.form.reset();
     }
